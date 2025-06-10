@@ -23,7 +23,6 @@ module.exports = defineConfig({
       return config;
     },
   },
-
   env: {
     grepFilterSpecs: true,
     BACKEND_ENDPOINT: "http://localhost:4000/api/v1",

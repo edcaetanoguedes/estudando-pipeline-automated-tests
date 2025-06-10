@@ -21,3 +21,15 @@ Then("a resposta deve conter uma lista de usuários", () => {
     expect(response.body).to.be.an("array");
   });
 });
+
+// Scenario: API deve retornar os dados do usuário com sucesso
+
+Given("que existe um usuário cadastrado com um ID específico", () => {
+  //
+});
+
+When("eu envio uma requisição GET para obter os dados do usuário", () => {
+  cy.api_request("GET", "/users/1");
+});
+
+// Then ('a resposta deve ter o status 200', () => {})
