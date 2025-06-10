@@ -4,6 +4,9 @@ on:
   workflow_dispatch: # permite execução manual na aba "Actions"
   workflow_call:
     inputs:
+      secrets:
+        GH_ESTUDANDO_PIPELINE_TOKEN:
+          required: true
       backend-branch:
         required: true
         type: string
