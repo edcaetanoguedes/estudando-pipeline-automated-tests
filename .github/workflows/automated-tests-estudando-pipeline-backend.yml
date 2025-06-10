@@ -1,0 +1,58 @@
+name: Backend Automated Tests on estudando-pipeline-backend
+
+on:
+  workflow_dispatch: # permite execução manual na aba "Actions"
+  workflow_call:
+    inputs:
+      backend-branch:
+        required: true
+        type: string
+
+jobs:
+  e2e-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar o repositório da aplicação (estudando-pipeline-backend)
+        uses: actions/checkout@v4
+        with:
+          repository: edcaetanoguedes/estudando-pipeline-backend
+          token: ${{ secrets.GH_ESTUDANDO_PIPELINE_TOKEN }}
+          path: estudando-pipeline-backend
+          ref: ${{ inputs.backend-branch }}
+
+      - name: Instalar dependências (backend)
+        working-directory: estudando-pipeline-backend
+        run: npm install
+
+      - name: Iniciar a aplicação (porta 4000)
+        working-directory: estudando-pipeline-backend
+        run: npm run dev &
+
+      - name: Esperar a aplicação estar disponível
+        run: npx wait-on http://localhost:4000
+
+      - name: Clonar os testes deste repositório
+        uses: actions/checkout@v4
+        with:
+          path: estudando-pipeline-automated-tests
+
+      - name: Instalar dependências dos testes
+        working-directory: estudando-pipeline-automated-tests
+        run: npm install
+
+      - name: Executar os testes Cypress
+        working-directory: tests
+        run: npm run test:cy:backend
+
+    # Merge automático de develop -> main se passar nos testes
+    # - name: Auto-merge develop into main (if tests pass)
+    #   if: success()
+    #   run: |
+    #   curl -L \
+    #       -X POST \
+    #       -H "Accept: application/vnd.github+json" \
+    #       -H "Authorization: Bearer ${{ secrets.GH_ESTUDANDO_PIPELINE_TOKEN }}" \
+    #       -H "X-GitHub-Api-Version: 2022-11-28" \
+    #       https://api.github.com/repos/edcaetanoguedes/estudando-pipeline-backend/merges \
+    #       -d '{"base":"main","head":"develop","commit_message":"Auto-merge develop into main after successful E2E tests"}'

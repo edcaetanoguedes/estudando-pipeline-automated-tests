@@ -20,7 +20,8 @@
     "cz-conventional-changelog": "^3.3.0",
     "husky": "^8.0.0",
     "lint-staged": "^16.1.0",
-    "prettier": "^3.5.3"
+    "prettier": "^3.5.3",
+    "wait-on": "^8.0.3"
   },
   "cypress-cucumber-preprocessor": {
     "stepDefinitions": "cypress/support/step_definitions/**/*"
