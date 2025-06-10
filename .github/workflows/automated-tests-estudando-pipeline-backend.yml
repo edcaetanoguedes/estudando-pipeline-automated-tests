@@ -42,7 +42,7 @@ jobs:
         run: npm install
 
       - name: Executar os testes Cypress
-        working-directory: tests
+        working-directory: estudando-pipeline-automated-tests
         run: npm run test:cy:backend
 
     # Merge automático de develop -> main se passar nos testes
