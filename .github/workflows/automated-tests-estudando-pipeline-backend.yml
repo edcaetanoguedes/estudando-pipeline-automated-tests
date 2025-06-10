@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clonar o repositório da aplicação (estudando-pipeline-backend)
+      - name: Clonar repositório (backend)
         uses: actions/checkout@v4
         with:
           repository: edcaetanoguedes/estudando-pipeline-backend
@@ -28,24 +28,24 @@ jobs:
         working-directory: estudando-pipeline-backend
         run: npm install
 
-      - name: Iniciar a aplicação (porta 4000)
+      - name: Iniciar aplicação na porta 4000 (backend)
         working-directory: estudando-pipeline-backend
         run: npm run dev &
 
-      - name: Esperar a aplicação estar disponível
+      - name: Esperar a aplicação estar disponível (backend)
         run: npx wait-on http://localhost:4000
 
-      - name: Clonar os testes deste repositório
+      - name: Clonar repositório de testes
         uses: actions/checkout@v4
         with:
           repository: edcaetanoguedes/estudando-pipeline-automated-tests
           path: estudando-pipeline-automated-tests
 
-      - name: Instalar dependências dos testes
+      - name: Instalar dependências (tests)
         working-directory: estudando-pipeline-automated-tests
         run: npm install
 
-      - name: Executar os testes Cypress
+      - name: Executar testes
         working-directory: estudando-pipeline-automated-tests
         run: npm run test:cy:backend
 
