@@ -33,3 +33,12 @@ When("eu envio uma requisição GET para obter os dados do usuário", () => {
 });
 
 // Then ('a resposta deve ter o status 200', () => {})
+
+Then("o corpo da resposta deve conter os dados do usuário", () => {
+  cy.get("@response").then((response) => {
+    expect(response.body).to.have.property("id");
+    expect(response.body).to.have.property("name");
+    expect(response.body).to.have.property("username");
+    expect(response.body).to.have.property("phone");
+  });
+});

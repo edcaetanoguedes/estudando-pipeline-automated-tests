@@ -12,3 +12,4 @@ Feature: Consultar lista de usuários cadastrados
     Given que existe um usuário cadastrado com um ID específico
     When eu envio uma requisição GET para obter os dados do usuário
     Then a resposta deve ter o status 200
+    Then o corpo da resposta deve conter os dados do usuário
