@@ -32,6 +32,7 @@ const HEADERS = {
 
 // Requisição padrão
 Cypress.Commands.add("api_request", (reqType, uri, body) => {
+  console.log(JSON.stringify(body));
   cy.request({
     method: reqType,
     url: `${BACKEND_ENDPOINT}${uri}`,
