@@ -26,7 +26,7 @@ jobs:
 
       - name: Instalar dependências (backend)
         working-directory: estudando-pipeline-backend
-        run: npm install
+        run: npm ci
 
       - name: Iniciar aplicação na porta 4000 (backend)
         working-directory: estudando-pipeline-backend
@@ -43,7 +43,7 @@ jobs:
 
       - name: Instalar dependências (tests)
         working-directory: estudando-pipeline-automated-tests
-        run: npm install
+        run: npm ci
 
       - name: Executar testes
         working-directory: estudando-pipeline-automated-tests
