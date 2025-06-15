@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Mostrar nome da branch a para testar
+        run: |
+          echo "Branch: ${{ inputs.backend-branch }}"
       - name: Clonar repositório (backend)
         uses: actions/checkout@v4
         with:
