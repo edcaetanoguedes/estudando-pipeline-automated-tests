@@ -4,7 +4,7 @@ on:
   workflow_dispatch: # permite execução manual na aba "Actions"
   workflow_call:
     inputs:
-      backend-branch:
+      current-branch:
         required: true
         type: string
     secrets:
@@ -18,14 +18,14 @@ jobs:
     steps:
       - name: Mostrar nome da branch a para testar
         run: |
-          echo "Branch: ${{ inputs.backend-branch }}"
+          echo "Branch: ${{ inputs.current-branch }}"
       - name: Clonar repositório (backend)
         uses: actions/checkout@v4
         with:
           repository: edcaetanoguedes/estudando-pipeline-backend
           token: ${{ secrets.GH_ESTUDANDO_PIPELINE_TOKEN }}
           path: estudando-pipeline-backend
-          ref: ${{ inputs.backend-branch }}
+          ref: ${{ inputs.current-branch }}
 
       - name: Instalar dependências (backend)
         working-directory: estudando-pipeline-backend
