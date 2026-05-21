@@ -50,4 +50,18 @@ jobs:
 
       - name: Executar testes
         working-directory: estudando-pipeline-automated-tests
-        run: npm run test:cy:backend
+        run: |
+          set -o pipefail
+          npm run test:cy:backend 2>&1 | tee test-output.txt
+
+      - name: Adicionar resultado dos testes ao summary
+        if: always()
+        working-directory: estudando-pipeline-automated-tests
+        run: |
+          echo '## Resultados dos testes backend' >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          awk '/\(Run finished\)/ {found=1; next} found {print}' test-output.txt \
+            | sed -r $'s/\x1B\[[0-9;]*[mK]//g' \
+            | python3 -c "import sys; sys.stdout.write(sys.stdin.buffer.read().decode('utf-8','ignore'))" \
+            >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
